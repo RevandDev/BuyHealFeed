@@ -1,0 +1,14 @@
+#BuyHeal
+#Replace: {player} => player name
+heal-price: "5000"
+heal-succes-msg: "§eSuccesfully Buying Heal!, Your Healt Bar Now Is Full"
+heal-failed-msg: "§cBuying Heal Failed, Your Money is Not Enough"
+
+#BuyFeed
+#Replace: {player} => player name
+feed-price: "5000"
+feed-succes-msg: "§eSuccesfully Buying Feed!, Your Food Bar Now Is Full"
+feed-failed-msg: "§cBuying Feed Failed, Your Money is Not Enough"
+
+#In Game Message
+ingame-msg: "§cUse-In Game!"
