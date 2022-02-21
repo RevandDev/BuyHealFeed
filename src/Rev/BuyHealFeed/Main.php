@@ -5,9 +5,11 @@ namespace Rev\BuyHealFeed;
 use pocketmine\Server;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
-use pocketmine\event\{Event, Listener};
-use pocketmine\command\{Command, CommandSender};
-use pocketmine\utils\{TextFormat, Config};
+use pocketmine\event\Event;
+use pocketmine\event\Listener;
+use pocketmine\command\Command;
+use pocketmine\commandCommandSender;
+use pocketmine\utils\Config;
 
 class Main extends PluginBase implements Listener {
     
@@ -47,7 +49,6 @@ class Main extends PluginBase implements Listener {
              $msg = $this->getConfig()->get("ingame-msg");
              $p->sendMessage($msg);
          }
-             
         return true;
     }
 }
