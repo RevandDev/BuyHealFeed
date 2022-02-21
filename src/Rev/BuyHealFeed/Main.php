@@ -21,12 +21,12 @@ class Main extends PluginBase implements Listener {
     }
     
     public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool{
-        $this->eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
+         $eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
          if ($p instanceof Player) {
              if ($cmd->getName() === 'buyheal') {
-                if ($this->eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
+                if ($eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
                     $msg = str_replace("{name}", $p->getName(), $this->getConfig()->get("heal-succes-msg"));
-                    $this->eco->reduceMoney($p, $this->getConfig()->get("heal-price"));
+                    $eco->reduceMoney($p, $this->getConfig()->get("heal-price"));
                     $p->setHealth($p->getMaxHealth());
                     $p->sendMessage($msg);
                 } else {
@@ -36,7 +36,7 @@ class Main extends PluginBase implements Listener {
              } elseif ($cmd->getName() === 'buyfeed') {
                 if ($this->eco->myMoney($p) >= $this->getConfig()->get("feed-price")) {
                     $msg = str_replace("{name}", $p->getName(), $this->getConfig()->get("feed-succes-msg"));
-                    $this->eco->reduceMoney($p, $this->getConfig()->get("feed-price"));
+                    $eco->reduceMoney($p, $this->getConfig()->get("feed-price"));
                     $p->getHungerManager()->setFood(20);
                     $p->getHungerManager()->setSaturation(20);
                     $p->sendMessage($msg);
