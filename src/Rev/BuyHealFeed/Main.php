@@ -19,7 +19,6 @@ class Main extends PluginBase implements Listener {
         @mkdir($this->getDataFolder());
         $this->saveResource("config.yml");
         
-        //economyapi
         $this->eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
     }
     
