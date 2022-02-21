@@ -20,6 +20,8 @@ class Main extends PluginBase implements Listener {
         $this->reloadConfig();
         @mkdir($this->getDataFolder());
         $this->saveResource("config.yml");
+        
+        //economyapi
         $this->eco = EconomyAPI::getInstance();
     }
     
