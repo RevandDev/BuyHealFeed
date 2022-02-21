@@ -11,8 +11,6 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
 
-use onebone\economyapi\EconomyAPI;
-
 class Main extends PluginBase implements Listener {
     
     public function onEnable() : void{
@@ -25,7 +23,7 @@ class Main extends PluginBase implements Listener {
         $this->eco = EconomyAPI::getInstance();
     }
     
-    public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool
+    public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool{
          if ($p instanceof Player) {
              if ($cmd->getName() === 'buyheal') {
                 if ($this->eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
