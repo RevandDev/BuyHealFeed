@@ -18,10 +18,10 @@ class Main extends PluginBase implements Listener {
         $this->reloadConfig();
         @mkdir($this->getDataFolder());
         $this->saveResource("config.yml");
-        $this->eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
     }
     
     public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool{
+        $this->eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
          if ($p instanceof Player) {
              if ($cmd->getName() === 'buyheal') {
                 if ($this->eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
