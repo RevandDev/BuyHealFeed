@@ -20,7 +20,7 @@ class Main extends PluginBase implements Listener {
         $this->saveResource("config.yml");
         
         //economyapi
-        $this->eco = EconomyAPI::getInstance();
+        $this->eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
     }
     
     public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool{
