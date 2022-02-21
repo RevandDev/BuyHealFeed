@@ -11,6 +11,8 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
 
+use onebone\economyapi\EconomyAPI;
+
 class Main extends PluginBase implements Listener {
     
     public function onEnable() : void{
@@ -18,15 +20,15 @@ class Main extends PluginBase implements Listener {
         $this->reloadConfig();
         @mkdir($this->getDataFolder());
         $this->saveResource("config.yml");
+        $this->eco = EconomyAPI::getInstance();
     }
     
     public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool
          if ($p instanceof Player) {
              if ($cmd->getName() === 'buyheal') {
-                $eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
-                if ($eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
+                if ($this->eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
                     $msg = str_replace("{name}", $p->getName(), $this->getConfig()->get("heal-succes-msg"));
-                    $eco->reduceMoney($p, $this->getConfig()->get("heal-price"));
+                    $this->eco->reduceMoney($p, $this->getConfig()->get("heal-price"));
                     $p->setHealth($p->getMaxHealth());
                     $p->sendMessage($msg);
                 } else {
@@ -34,10 +36,9 @@ class Main extends PluginBase implements Listener {
                     $p->sendMessage($msg);
                 }
              } elseif ($cmd->getName() === 'buyfeed') {
-                $eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
-                if ($eco->myMoney($p) >= $this->getConfig()->get("feed-price")) {
+                if ($this->eco->myMoney($p) >= $this->getConfig()->get("feed-price")) {
                     $msg = str_replace("{name}", $p->getName(), $this->getConfig()->get("feed-succes-msg"));
-                    $eco->reduceMoney($p, $this->getConfig()->get("feed-price"));
+                    $this->eco->reduceMoney($p, $this->getConfig()->get("feed-price"));
                     $p->getHungerManager()->setFood(20);
                     $p->getHungerManager()->setSaturation(20);
                     $p->sendMessage($msg);
