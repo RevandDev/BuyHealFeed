@@ -10,7 +10,8 @@ use pocketmine\event\Listener;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
-use cooldogedev\BedrockEconomy;
+use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
+use cooldogedev\libSQL\context\ClosureContext;
 
 class Main extends PluginBase implements Listener {
     
@@ -55,13 +56,35 @@ class Main extends PluginBase implements Listener {
     public function myMoney($player)
     {
         $pn = $player->getName();
-        BedrockEconomy::getAPI()->getPlayerBalance($pn);
+        BedrockEconomyAPI::getInstance()->getPlayerBalance(
+        $pn,
+            ClosureContext::create(
+                 function (?int $balance): void {
+                       var_dump($balance);
+                  },
+             )
+       );
     }
     
     public function reduceMoney($player, $int)
     {
         $pn = $player->getName();
-        $bal = BedrockEconomy::getAPI()->getPlayerBalance($pn);
-        BedrockEconomy::getAPI()->setPlayerBalance($pn, $bal - $int);
+        $bal = BedrockEconomyAPI::getInstance()->getPlayerBalance(
+        $pn,
+            ClosureContext::create(
+                 function (?int $balance): void {
+                       var_dump($balance);
+                  },
+             )
+       );
+       BedrockEconomyAPI::getInstance()->setPlayerBalance(
+            $pn,
+            $bal - int,
+                 ClosureContext::create(
+                       function (bool $wasUpdated): void {
+                           var_dump($wasUpdated);
+                       },
+                 )
+        );
     }
 }
