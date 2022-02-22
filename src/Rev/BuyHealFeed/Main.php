@@ -20,7 +20,7 @@ class Main extends PluginBase implements Listener {
         $this->reloadConfig();
         @mkdir($this->getDataFolder());
         $this->saveResource("config.yml");       
-        if (!class_exists(ClosureContext)) {
+        if (!class_exists(ClosureContext::class)) {
                 $this->getLogger()->error("Class CloseContext Not Found, Update Your BedrockEconomy");
                 $this->getServer()->getPluginManager()->disablePlugin($this);
                 return;
