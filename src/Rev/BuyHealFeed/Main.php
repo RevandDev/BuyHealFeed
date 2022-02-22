@@ -2,6 +2,7 @@
 
 namespace Rev\BuyHealFeed;
 
+use Closure;
 use pocketmine\Server;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
@@ -11,7 +12,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
 use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
-use cooldogedev\libSQL\context\ClosureContext;
+use cooldogedev\BedrockEconomy\libs\cooldogedev\libSQL\context\ClosureContext;
 
 class Main extends PluginBase implements Listener {
     
