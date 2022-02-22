@@ -69,22 +69,15 @@ class Main extends PluginBase implements Listener {
     public function reduceMoney($player, $int)
     {
         $pn = $player->getName();
-        $bal = BedrockEconomyAPI::getInstance()->getPlayerBalance(
-        $pn,
-            ClosureContext::create(
-                 function (?int $balance): void {
-                       var_dump($balance);
-                  },
-             )
-       );
-       BedrockEconomyAPI::getInstance()->setPlayerBalance(
+        $bal = $this->myMoney($player)
+        BedrockEconomyAPI::getInstance()->setPlayerBalance(
             $pn,
-            $bal - int,
-                 ClosureContext::create(
+            $bal - $int,
+                ClosureContext::create(
                        function (bool $wasUpdated): void {
                            var_dump($wasUpdated);
                        },
-                 )
+                )
         );
     }
 }
