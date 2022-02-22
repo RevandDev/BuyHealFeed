@@ -20,6 +20,11 @@ class Main extends PluginBase implements Listener {
         $this->reloadConfig();
         @mkdir($this->getDataFolder());
         $this->saveResource("config.yml");       
+        if (!class_exists(ClosureContext)) {
+                $this->getLogger()->error("Class CloseContext Not Found, Update Your BedrockEconomy");
+                $this->getServer()->getPluginManager()->disablePlugin($this);
+                return;
+            }
     }
     
     public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool{
