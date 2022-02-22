@@ -10,6 +10,7 @@ use pocketmine\event\Listener;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
+use cooldogedev\BedrockEconomy;
 
 class Main extends PluginBase implements Listener {
     
@@ -17,17 +18,15 @@ class Main extends PluginBase implements Listener {
         $this->saveDefaultConfig();
         $this->reloadConfig();
         @mkdir($this->getDataFolder());
-        $this->saveResource("config.yml");
-        
-        $this->eco = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
+        $this->saveResource("config.yml");       
     }
     
     public function onCommand(CommandSender $p, Command $cmd, String $label, array $args): bool{
          if ($p instanceof Player) {
              if ($cmd->getName() === 'buyheal') {
-                if ($this->eco->myMoney($p) >= $this->getConfig()->get("heal-price")) {
+                if ($this->myMoney($p) >= $this->getConfig()->get("heal-price")) {
                     $msg = str_replace("{name}", $p->getName(), $this->getConfig()->get("heal-succes-msg"));
-                    $this->eco->reduceMoney($p, $this->getConfig()->get("heal-price"));
+                    $this->reduceMoney($p, $this->getConfig()->get("heal-price"));
                     $p->setHealth($p->getMaxHealth());
                     $p->sendMessage($msg);
                 } else {
@@ -35,9 +34,9 @@ class Main extends PluginBase implements Listener {
                     $p->sendMessage($msg);
                 }
              } elseif ($cmd->getName() === 'buyfeed') {
-                if ($this->eco->myMoney($p) >= $this->getConfig()->get("feed-price")) {
+                if ($this->myMoney($p) >= $this->getConfig()->get("feed-price")) {
                     $msg = str_replace("{name}", $p->getName(), $this->getConfig()->get("feed-succes-msg"));
-                    $this->eco->reduceMoney($p, $this->getConfig()->get("feed-price"));
+                    $this->reduceMoney($p, $this->getConfig()->get("feed-price"));
                     $p->getHungerManager()->setFood(20);
                     $p->getHungerManager()->setSaturation(20);
                     $p->sendMessage($msg);
@@ -51,5 +50,18 @@ class Main extends PluginBase implements Listener {
              $p->sendMessage($msg);
          }
         return true;
+    }
+    
+    public function myMoney($player)
+    {
+        $pn = $player->getName();
+        BedrockEconomy::getAPI()->getPlayerBalance($pn);
+    }
+    
+    public function reduceMoney($player, $int)
+    {
+        $pn = $player->getName();
+        $bal = BedrockEconomy::getAPI()->getPlayerBalance($pn);
+        BedrockEconomy::getAPI()->setPlayerBalance($pn, $bal - $int);
     }
 }
