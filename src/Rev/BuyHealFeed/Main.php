@@ -70,7 +70,6 @@ class Main extends PluginBase implements Listener {
                   },
              )
        );
-       return $balance;
     }
     
     public function reduceMoney($player, $int)
