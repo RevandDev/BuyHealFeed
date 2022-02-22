@@ -69,7 +69,7 @@ class Main extends PluginBase implements Listener {
     public function reduceMoney($player, $int)
     {
         $pn = $player->getName();
-        $bal = $this->myMoney($player)
+        $bal = $this->myMoney($player);
         BedrockEconomyAPI::getInstance()->setPlayerBalance(
             $pn,
             $bal - $int,
